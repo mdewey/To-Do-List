@@ -3,5 +3,8 @@
 
     <string name="hello">Hello World, ToDoListActivity!</string>
     <string name="app_name">To Do List</string>
+    <string name="add_item_button_text">Add Item</string>
+    <string name="add_title_label">Thing:</string>
+    <string name="add_item_desciption_label">Thing description</string>
 
 </resources>
