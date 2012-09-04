@@ -4,9 +4,26 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello" />
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/addBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="ShowAddItemDialog"
+            android:text="@string/add_item_button_text" />
+
+    </LinearLayout>
+<ListView
+android:id="@android:id/list"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:drawSelectorOnTop="false"
+
+/>
 
 </LinearLayout>
