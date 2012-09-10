@@ -8,9 +8,21 @@
         android:id="@+id/toDoItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Large Text"
+        android:text="Empty"
         android:textAppearance="?android:attr/textAppearanceLarge" 
         android:paddingTop="30px"
-        android:paddingBottom="30px"/>
+
+        />
+
+    <TextView
+        android:id="@+id/toDoItemDesciption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="30px"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#ABABAB"
+       	android:lines="1"
+        android:textStyle="italic" />
 
 </LinearLayout>

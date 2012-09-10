@@ -60,7 +60,8 @@ public class ToDoListActivity extends ListActivity {
 			public void onItemClick(AdapterView<?> arg0, View view, int position,
 					long id) {
 					//TODO figure out what do to when an item is clicked....
-					Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_SHORT).show();
+					String text = "Description:" + listItems.get(position).get_description() + " of item:"  + listItems.get(position).get_name();
+					Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
 			}
 		});
         myList.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -107,16 +108,19 @@ public class ToDoListActivity extends ListActivity {
       AlertDialog.Builder adb = new AlertDialog.Builder(context);
       
       adb.setView(display);
-      final EditText userInput = (EditText)display.findViewById(R.id.itemTitle);
+      final EditText itemTitleEditBox = (EditText)display.findViewById(R.id.itemTitle);
+      final EditText itemDescriptionEditBox = (EditText)display.findViewById(R.id.itemDescription);
       
       adb.setCancelable(true)
          .setPositiveButton("Add!", new DialogInterface.OnClickListener() {
 			
 			public void onClick(DialogInterface dialog, int which) {
-				Toast.makeText(context, userInput.getText(), Toast.LENGTH_SHORT).show();
-				String itemToAdd = userInput.getText().toString();
+				Toast.makeText(context, itemTitleEditBox.getText(), Toast.LENGTH_SHORT).show();
+				String itemTitle= itemTitleEditBox.getText().toString();
+				String itemDescription = itemDescriptionEditBox.getText().toString();
+				
 				//TODO: Insert into DB
-	    		ToDoItem newItem = datasource.createItem(itemToAdd);
+	    		ToDoItem newItem = datasource.createItem(itemTitle, itemDescription);
 	    		//add value to list
 	    		adapter.add(newItem);
 	        	adapter.notifyDataSetChanged();

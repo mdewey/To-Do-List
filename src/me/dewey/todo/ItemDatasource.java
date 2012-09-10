@@ -14,7 +14,7 @@ public class ItemDatasource {
 	//Database Fields
 	private SQLiteDatabase database;
 	private DBHelper dbhelper;
-	private String[] allColumns = { DBHelper.KEY_ID, DBHelper.COLUMN_ITEM_NAME };
+	private String[] allColumns = { DBHelper.KEY_ID, DBHelper.COLUMN_ITEM_NAME, DBHelper.COLUMN_DESCRIPTION_NAME };
 	
 	public ItemDatasource(Context c)
 	{
@@ -30,10 +30,11 @@ public class ItemDatasource {
 		dbhelper.close();
 	}
 	
-	public ToDoItem createItem(String newName)
+	public ToDoItem createItem(String newName, String newDescription)
 	{
 		ContentValues values = new ContentValues();
 		values.put(DBHelper.COLUMN_ITEM_NAME, newName);
+		values.put(DBHelper.COLUMN_DESCRIPTION_NAME, newDescription);
 		long insertId = database.insert(DBHelper.GROUP_TABLE_NAME, null, values);
 		Cursor cursor = database.query(DBHelper.GROUP_TABLE_NAME, allColumns, DBHelper.KEY_ID + "=" + insertId, null, null, null,null);
 		cursor.moveToFirst();
@@ -69,6 +70,8 @@ public class ItemDatasource {
 		ToDoItem item = new ToDoItem();
 		item.set_id(cursor.getLong(0));
 		item.set_name(cursor.getString(1));
+		item.set_description(cursor.getString(2));
 		return item;
 	}
 }
+
