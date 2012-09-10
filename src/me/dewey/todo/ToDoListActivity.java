@@ -8,6 +8,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
@@ -23,7 +24,7 @@ import android.widget.Toast;
 public class ToDoListActivity extends ListActivity {
 	
 	//TODO: Add database support for data living past one life
-	//private GroupDataSource data source;
+	private ItemDatasource datasource;
 	private List<String> listItems;
     private ArrayAdapter<String> adapter;
     private ListView myList;
@@ -37,7 +38,11 @@ public class ToDoListActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
+        
+        //Open DB connection 
+        datasource = new ItemDatasource(this);
+        datasource.open();
+        
         //gets list of items and inits the listitem array
         listItems = GetListOfItems();
         
@@ -87,10 +92,10 @@ public class ToDoListActivity extends ListActivity {
     }
     /** helper Functions **/
      
-    private ArrayList<String> GetListOfItems()
+    private List<String> GetListOfItems()
     {
     	//TODO: Query Database and get the list from datasource
-    	return new ArrayList<String>();
+    	return datasource.getAllItems();
 		
     }
     
@@ -111,9 +116,9 @@ public class ToDoListActivity extends ListActivity {
 				Toast.makeText(context, userInput.getText(), Toast.LENGTH_SHORT).show();
 				String itemToAdd = userInput.getText().toString();
 				//TODO: Insert into DB
-	    		//Group newGroup = datasource.createGroup(textToAdd);
+	    		ToDoItem newItem = datasource.createItem(itemToAdd);
 	    		//add value to list
-	    		adapter.add(itemToAdd);
+	    		adapter.add(newItem.get_name());
 	        	adapter.notifyDataSetChanged();
 				
 			}
@@ -134,9 +139,19 @@ public class ToDoListActivity extends ListActivity {
     
     public void RemoveItemFromList(int pos)
     {
-    	//TODO: Delete from datasource once datasource is added......
+    	//TODO: THIS IS SMOKE AND MIRRORS UNTIL I GET custom adapter going
+    	//KNOWBUG: if i have x and x on the same list, they will both be deleted
+    	ToDoItem t = new ToDoItem(listItems.get(pos));
+    	datasource.deleteItem(t);
+    	
     	adapter.remove(adapter.getItem(pos));
     	adapter.notifyDataSetChanged();
     }
+  //prevents page from reloading (keeps keyboard hidden so it doesn't cause WebView activity to restart
+    @Override
+    public void onConfigurationChanged(Configuration newConfig){
+    	super.onConfigurationChanged(newConfig);
+    }//end onConfigurationChanged
+    
 
 }
