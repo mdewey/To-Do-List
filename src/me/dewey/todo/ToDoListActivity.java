@@ -25,8 +25,8 @@ public class ToDoListActivity extends ListActivity {
 	
 	//TODO: Add database support for data living past one life
 	private ItemDatasource datasource;
-	private List<String> listItems;
-    private ArrayAdapter<String> adapter;
+	private List<ToDoItem> listItems;
+    private ItemArrayAdapter adapter;
     private ListView myList;
     private Vibrator vibe;
     final Context context = this;
@@ -50,7 +50,7 @@ public class ToDoListActivity extends ListActivity {
         vibe = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE) ;
         
         //sets adapter for listview
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listItems);
+        adapter = new ItemArrayAdapter(this, android.R.layout.simple_list_item_1,listItems);
         setListAdapter(adapter);
         
         //set onclick listners 
@@ -68,7 +68,7 @@ public class ToDoListActivity extends ListActivity {
 			public boolean onItemLongClick(AdapterView<?> arg0, View view,final int pos, long id) {
 				vibe.vibrate(50);
 				AlertDialog.Builder builder = new AlertDialog.Builder(ToDoListActivity.this);
-				builder.setMessage("Are you sure you want to delete " +listItems.get(pos));
+				builder.setMessage("Are you sure you want to delete " +listItems.get(pos).get_name());
 				builder.setCancelable(false);
 				builder.setPositiveButton("Yes", new OnClickListener() {
 
@@ -92,7 +92,7 @@ public class ToDoListActivity extends ListActivity {
     }
     /** helper Functions **/
      
-    private List<String> GetListOfItems()
+    private List<ToDoItem> GetListOfItems()
     {
     	//TODO: Query Database and get the list from datasource
     	return datasource.getAllItems();
@@ -118,7 +118,7 @@ public class ToDoListActivity extends ListActivity {
 				//TODO: Insert into DB
 	    		ToDoItem newItem = datasource.createItem(itemToAdd);
 	    		//add value to list
-	    		adapter.add(newItem.get_name());
+	    		adapter.add(newItem);
 	        	adapter.notifyDataSetChanged();
 				
 			}
@@ -141,7 +141,7 @@ public class ToDoListActivity extends ListActivity {
     {
     	//TODO: THIS IS SMOKE AND MIRRORS UNTIL I GET custom adapter going
     	//KNOWBUG: if i have x and x on the same list, they will both be deleted
-    	ToDoItem t = new ToDoItem(listItems.get(pos));
+    	ToDoItem t = listItems.get(pos);
     	datasource.deleteItem(t);
     	
     	adapter.remove(adapter.getItem(pos));

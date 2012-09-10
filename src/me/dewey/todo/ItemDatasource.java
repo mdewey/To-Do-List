@@ -49,15 +49,15 @@ public class ItemDatasource {
 		database.delete(DBHelper.GROUP_TABLE_NAME, DBHelper.COLUMN_ITEM_NAME +"='"+ name+"'", null);	
 	}
 	
-	public List<String> getAllItems()
+	public List<ToDoItem> getAllItems()
 	{
-		List<String> items = new ArrayList<String>();
+		List<ToDoItem> items = new ArrayList<ToDoItem>();
 		Cursor cursor = database.query(DBHelper.GROUP_TABLE_NAME, allColumns, null, null, null, null, null);
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast())
 		{
 			ToDoItem tdi = cursorToItem(cursor);
-			items.add(tdi.get_name());
+			items.add(tdi);
 			cursor.moveToNext();
 		}
 		cursor.close();
