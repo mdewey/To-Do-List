@@ -3,6 +3,15 @@ package me.dewey.todo;
 public class ToDoItem {
 	private Long _id;
 	private String _name;	
+	private String _description;
+	
+	public ToDoItem(String n)
+	{
+		_name = n;
+	}
+	public ToDoItem() {
+		//Empty constuctor
+	}
 	
 	public String get_name() {
 		return _name;
@@ -17,11 +26,10 @@ public class ToDoItem {
 		this._id = _id;
 	}
 	
-	public ToDoItem(String n)
-	{
-		_name = n;
+	public String get_description() {
+		return _description;
 	}
-	public ToDoItem() {
-		//Empty constuctor
+	public void set_description(String _description) {
+		this._description = _description;
 	}
 }
