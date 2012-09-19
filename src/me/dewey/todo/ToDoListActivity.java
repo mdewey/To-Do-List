@@ -19,6 +19,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ToDoListActivity extends ListActivity {
@@ -59,9 +60,8 @@ public class ToDoListActivity extends ListActivity {
 	
 			public void onItemClick(AdapterView<?> arg0, View view, int position,
 					long id) {
-					//TODO figure out what do to when an item is clicked....
-					String text = "Description:" + listItems.get(position).get_description() + " of item:"  + listItems.get(position).get_name();
-					Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+				ShowItemDetailDialog(view, listItems.get(position), position);
+					
 			}
 		});
         myList.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -93,11 +93,52 @@ public class ToDoListActivity extends ListActivity {
     }
     /** helper Functions **/
      
+    
+
     private List<ToDoItem> GetListOfItems()
     {
     	//TODO: Query Database and get the list from datasource
     	return datasource.getAllItems();
 		
+    }
+    
+    
+    public void ShowItemDetailDialog(View v, ToDoItem item, final int pos)
+    {
+    	 LayoutInflater li = LayoutInflater.from(context);
+         View display = li.inflate(R.layout.see_item_details,null);
+         
+         AlertDialog.Builder adb = new AlertDialog.Builder(context);
+         
+         adb.setView(display);
+         final TextView itemTitleTextBox = (TextView)display.findViewById(R.id.viewItemTitle);
+         final TextView itemDescriptionTextBox = (TextView)display.findViewById(R.id.viewItemDescription);
+         
+         itemTitleTextBox.setText(item.get_name());
+         itemDescriptionTextBox.setText(item.get_description());
+         
+         adb.setCancelable(true)
+            .setPositiveButton("Did!!!", new DialogInterface.OnClickListener() {
+   			
+   			public void onClick(DialogInterface dialog, int which) {
+   			
+   				RemoveItemFromList(pos);
+   				dialog.cancel();
+   				
+   			}
+   		})
+   		.setNegativeButton("Not Done!", new DialogInterface.OnClickListener() {
+   			
+   			public void onClick(DialogInterface dialog, int which) {
+   				// TODO Auto-generated method stub
+   				dialog.cancel();
+   			}
+   		});
+         
+         AlertDialog alertDialog = adb.create();
+         
+         alertDialog.show();
+    	
     }
     
     public void ShowAddItemDialog(View v)
