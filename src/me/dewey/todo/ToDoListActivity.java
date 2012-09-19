@@ -156,15 +156,23 @@ public class ToDoListActivity extends ListActivity {
          .setPositiveButton("Add!", new DialogInterface.OnClickListener() {
 			
 			public void onClick(DialogInterface dialog, int which) {
-				Toast.makeText(context, itemTitleEditBox.getText(), Toast.LENGTH_SHORT).show();
+				
 				String itemTitle= itemTitleEditBox.getText().toString();
 				String itemDescription = itemDescriptionEditBox.getText().toString();
 				
-				//TODO: Insert into DB
-	    		ToDoItem newItem = datasource.createItem(itemTitle, itemDescription);
-	    		//add value to list
-	    		adapter.add(newItem);
-	        	adapter.notifyDataSetChanged();
+
+				if (itemTitle.length() > 0)
+				{
+					ToDoItem newItem = datasource.createItem(itemTitle, itemDescription);
+		    		//add value to list
+		    		adapter.add(newItem);
+		        	adapter.notifyDataSetChanged();
+
+				}
+				else
+				{
+					Toast.makeText(context, "Nothing to add!", Toast.LENGTH_LONG).show();
+				}
 				
 			}
 		})
