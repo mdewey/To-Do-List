@@ -9,13 +9,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_title_label"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+         />
 
     <TextView
         android:id="@+id/viewItemTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        <requestFocus />
+        android:layout_height="wrap_content" 
+        android:textAppearance="?android:attr/textAppearanceLarge">
+       
     </TextView>
 
     <TextView
@@ -23,14 +24,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_item_desciption_label"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+         />
 
     <TextView
         android:id="@+id/viewItemDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.24"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
     
 
 </LinearLayout>
