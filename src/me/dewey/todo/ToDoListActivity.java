@@ -151,6 +151,7 @@ public class ToDoListActivity extends ListActivity {
       adb.setView(display);
       final EditText itemTitleEditBox = (EditText)display.findViewById(R.id.itemTitle);
       final EditText itemDescriptionEditBox = (EditText)display.findViewById(R.id.itemDescription);
+      final EditText itemLabelEditBox = (EditText)display.findViewById(R.id.itemLabel);
       
       adb.setCancelable(true)
          .setPositiveButton("Add!", new DialogInterface.OnClickListener() {
@@ -159,11 +160,12 @@ public class ToDoListActivity extends ListActivity {
 				
 				String itemTitle= itemTitleEditBox.getText().toString();
 				String itemDescription = itemDescriptionEditBox.getText().toString();
-				
+				String itemLabel = itemLabelEditBox.getText().toString();
+				String itemLabelColor= "";
 
 				if (itemTitle.length() > 0)
 				{
-					ToDoItem newItem = datasource.createItem(itemTitle, itemDescription);
+					ToDoItem newItem = datasource.createItem(itemTitle, itemDescription, itemLabel,itemLabelColor);
 		    		//add value to list
 		    		adapter.add(newItem);
 		        	adapter.notifyDataSetChanged();

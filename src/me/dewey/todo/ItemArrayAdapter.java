@@ -55,9 +55,39 @@ public class ItemArrayAdapter extends ArrayAdapter<ToDoItem>{
 			itemName.setPadding(0, 30, 0, 30);
 		}
 		
+		//set label
+		TextView itemLabel = (TextView)rowView.findViewById(R.id.toDoItemLabel);
+		if (myList.get(position).get_label() != null)
+		{
+			if (myList.get(position).get_label().length() > 0) 
+			{
+				itemLabel.setText(myList.get(position).get_label());
+			}
+			else
+			{
+				hideLabel(true, itemLabel);
+			}
+			
+		}
+		else
+		{
+			hideLabel(true, itemLabel);
+		}
 				
 		return rowView;
 		
+	}
+	
+	private void hideLabel(boolean hide, TextView tv)
+	{
+		if (hide)
+		{
+			tv.setVisibility(View.GONE);
+		}
+		else
+		{
+			tv.setVisibility(View.VISIBLE);
+		}
 	}
 
 }
