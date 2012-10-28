@@ -14,7 +14,7 @@ public class ItemDatasource {
 	//Database Fields
 	private SQLiteDatabase database;
 	private DBHelper dbhelper;
-	private String[] allColumns = { DBHelper.KEY_ID, DBHelper.COLUMN_ITEM_NAME, DBHelper.COLUMN_DESCRIPTION_NAME };
+	private String[] allColumns = { DBHelper.KEY_ID, DBHelper.COLUMN_ITEM_NAME, DBHelper.COLUMN_DESCRIPTION_NAME, DBHelper.COLUMN_LABEL_NAME, DBHelper.COLUMN_LABEL_COLOR_NAME };
 	
 	public ItemDatasource(Context c)
 	{
@@ -30,11 +30,13 @@ public class ItemDatasource {
 		dbhelper.close();
 	}
 	
-	public ToDoItem createItem(String newName, String newDescription)
+	public ToDoItem createItem(String newName, String newDescription, String newLabel, String newLabelColor)
 	{
 		ContentValues values = new ContentValues();
 		values.put(DBHelper.COLUMN_ITEM_NAME, newName);
 		values.put(DBHelper.COLUMN_DESCRIPTION_NAME, newDescription);
+		values.put(DBHelper.COLUMN_LABEL_NAME, newLabel);
+		values.put(DBHelper.COLUMN_LABEL_COLOR_NAME, newLabelColor);
 		long insertId = database.insert(DBHelper.GROUP_TABLE_NAME, null, values);
 		Cursor cursor = database.query(DBHelper.GROUP_TABLE_NAME, allColumns, DBHelper.KEY_ID + "=" + insertId, null, null, null,null);
 		cursor.moveToFirst();
@@ -71,6 +73,7 @@ public class ItemDatasource {
 		item.set_id(cursor.getLong(0));
 		item.set_name(cursor.getString(1));
 		item.set_description(cursor.getString(2));
+		item.set_label(cursor.getString(3));
 		return item;
 	}
 }
