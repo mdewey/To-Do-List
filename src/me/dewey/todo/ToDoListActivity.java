@@ -11,8 +11,12 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnKeyListener;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -143,6 +147,7 @@ public class ToDoListActivity extends ListActivity {
     
     public void ShowAddItemDialog(View v)
     {
+    
       LayoutInflater li = LayoutInflater.from(context);
       View display = li.inflate(R.layout.get_item_dialog_layout, null);
       
@@ -152,7 +157,7 @@ public class ToDoListActivity extends ListActivity {
       final EditText itemTitleEditBox = (EditText)display.findViewById(R.id.itemTitle);
       final EditText itemDescriptionEditBox = (EditText)display.findViewById(R.id.itemDescription);
       final EditText itemLabelEditBox = (EditText)display.findViewById(R.id.itemLabel);
-      
+     
       adb.setCancelable(true)
          .setPositiveButton("Add!", new DialogInterface.OnClickListener() {
 			
@@ -191,6 +196,8 @@ public class ToDoListActivity extends ListActivity {
       alertDialog.show();
  
     }
+    
+    
     
     public void RemoveItemFromList(int pos)
     {

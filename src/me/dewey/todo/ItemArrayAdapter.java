@@ -1,8 +1,10 @@
 package me.dewey.todo;
 
 import java.util.List;
+import java.util.Random;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +64,7 @@ public class ItemArrayAdapter extends ArrayAdapter<ToDoItem>{
 			if (myList.get(position).get_label().length() > 0) 
 			{
 				itemLabel.setText(myList.get(position).get_label());
+				
 			}
 			else
 			{
