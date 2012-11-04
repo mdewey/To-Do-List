@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper{
     
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 5;
 
 	//Groups table with one column
 	public  static final String GROUP_TABLE_NAME = "Items";
@@ -20,6 +20,8 @@ public class DBHelper extends SQLiteOpenHelper{
                 "CREATE TABLE " + GROUP_TABLE_NAME + "(" + KEY_ID
     			+ " integer primary key autoincrement, " 
                 + COLUMN_ITEM_NAME	+ " text not null,"
+                + COLUMN_LABEL_NAME	+ " text not null,"
+                + COLUMN_LABEL_COLOR_NAME	+ " text not null,"
                 + COLUMN_DESCRIPTION_NAME	+ " text not null);";
     
       

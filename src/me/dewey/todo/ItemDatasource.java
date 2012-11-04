@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class ItemDatasource {
 	
@@ -55,15 +56,23 @@ public class ItemDatasource {
 	public List<ToDoItem> getAllItems()
 	{
 		List<ToDoItem> items = new ArrayList<ToDoItem>();
-		Cursor cursor = database.query(DBHelper.GROUP_TABLE_NAME, allColumns, null, null, null, null, null);
-		cursor.moveToFirst();
-		while (!cursor.isAfterLast())
+		try 
 		{
-			ToDoItem tdi = cursorToItem(cursor);
-			items.add(tdi);
-			cursor.moveToNext();
+			Cursor cursor = database.query(DBHelper.GROUP_TABLE_NAME, allColumns, null, null, null, null, null);
+			cursor.moveToFirst();
+			while (!cursor.isAfterLast())
+			{
+				ToDoItem tdi = cursorToItem(cursor);
+				items.add(tdi);
+				cursor.moveToNext();
+			}
+			cursor.close();
 		}
-		cursor.close();
+		catch (Exception ex)
+		{
+			Log.e("ToDoList", ex.getMessage());
+		}
+		
 		return items;
 
 	}
